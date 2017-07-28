@@ -1,11 +1,11 @@
 {
-	"name": "gif",
-	"url": "https://github.com/snowkit/gif",
+	"name": "openfl-gif",
+	"url": "https://github.com/RblSb/gif",
 	"license": "MIT",
 	"tags": [],
 	"description": "A haxe port of the LZW and NeuQuant gif encoding algorithms",
 	"version": "1.0.0",
 	"releasenote": "initial commit",
-	"contributors": [ "underscorediscovery", "keymaster" ],
+	"contributors": [ "underscorediscovery", "keymaster", "RblSb" ],
 	"dependencies": {}
 }

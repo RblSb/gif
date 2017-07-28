@@ -1,4 +1,4 @@
-GIF
+GIF (OpenFL version)
 ---
 
 **A GIF format encoder.**   
@@ -14,13 +14,27 @@ from [Chman/Moments](https://github.com/Chman/Moments)
 
 ### Install
 
-`haxelib git gif https://github.com/snowkit/gif.git`
+`haxelib git gif https://github.com/RblSb/gif.git`
 
 Then, add `gif` as a library dependency to your project.
 
 ### Simple usage
 
-See `test/Test.hx` for an example!
+```
+var gif = new Gif(
+	width:Int,
+	height:Int,
+	delay:Float = 0.03, //delay in seconds
+	repeat:Int = -1, //Infinite = -1, None = 0
+	quality:Int = 1, //Worst = 100, Best = 1
+	skip:Int = 1 //1 - noskip, 2 - skip every second frame, 3 - every third
+);
+
+gif.addFrame(bmd1:BitmapData);
+gif.addFrame(bmd2:BitmapData);
+
+gif.save();
+```
 
 ### Helpers
 
