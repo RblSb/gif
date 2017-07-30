@@ -12,13 +12,13 @@ class Gif {
 	public var height:Int;
 	public var delay = 0.03;
 	public var repeat = GifRepeat.Infinite;
-	public var quality = GifQuality.High;
+	public var quality = GifQuality.VeryHigh;
 	public var skip = 1;
 	var output:BytesOutput;
 	var encoder:GifEncoder;
 	var count = 0;
 	
-	public function new(width:Int, height:Int, delay=0.03, repeat=-1, quality=1, skip=1) {
+	public function new(width:Int, height:Int, delay=0.03, repeat=-1, quality=10, skip=1) {
 		this.width = width;
 		this.height = height;
 		this.delay = delay;
@@ -109,27 +109,3 @@ class Gif {
 	}
 	#end
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

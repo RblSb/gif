@@ -1,13 +1,13 @@
 GIF (OpenFL version)
 ---
 
-**A GIF format encoder.**   
-This only deals with the encoding (writing) and not reading of GIF files (see [format](https://github.com/haxefoundation/format)).   
+**A GIF format encoder.**
+This only deals with the encoding (writing) and not reading of GIF files (see [format](https://github.com/haxefoundation/format)).
 
-Haxe port by [KeyMaster-](https://github.com/KeyMaster-) and [underscorediscovery](https://github.com/underscorediscovery)   
+Haxe port by [KeyMaster-](https://github.com/KeyMaster-) and [underscorediscovery](https://github.com/underscorediscovery)
 from [Chman/Moments](https://github.com/Chman/Moments)
 
-**LICENSE**: The individual files are licensed accordingly.   
+**LICENSE**: The individual files are licensed accordingly.
 **REQUIREMENTS**: Haxe 3.2+, no dependencies
 
 ---
@@ -16,7 +16,7 @@ from [Chman/Moments](https://github.com/Chman/Moments)
 
 `haxelib git gif https://github.com/RblSb/gif.git`
 
-Then, add `gif` as a library dependency to your project.
+Then, add `openfl-gif` as a library dependency to your project.
 
 ### Simple usage
 
@@ -26,7 +26,7 @@ var gif = new Gif(
 	height:Int,
 	delay:Float = 0.03, //delay in seconds
 	repeat:Int = -1, //Infinite = -1, None = 0
-	quality:Int = 1, //Worst = 100, Best = 1
+	quality:Int = 10, //Worst = 100, Best = 1
 	skip:Int = 1 //1 - noskip, 2 - skip every second frame, 3 - every third
 );
 
