@@ -5,6 +5,14 @@ import openfl.net.FileReference;
 import haxe.io.BytesOutput;
 import haxe.io.UInt8Array;
 import gif.GifEncoder;
+#if js
+import js.html.ArrayBuffer;
+import js.html.DataView;
+import js.html.Blob;
+import js.html.URL;
+import js.Browser;
+#end
+
 
 class Gif {
 	
@@ -19,6 +27,7 @@ class Gif {
 	var count = 0;
 	
 	public function new(width:Int, height:Int, delay=0.03, repeat=-1, quality=10, skip=1) {
+		#if flash return; #end
 		this.width = width;
 		this.height = height;
 		this.delay = delay;
@@ -29,13 +38,14 @@ class Gif {
 		init();
 	}
 	
-	function init() {
+	function init():Void {
 		output = new BytesOutput();
 		encoder = new GifEncoder(width, height, delay, repeat, quality);
 		encoder.start(output);
 	}
 	
-	public function addFrame(bmd:BitmapData) {
+	public function addFrame(bmd:BitmapData):Void {
+		#if flash return; #end
 		count++;
 		if (count % skip != 0) return;
 		
@@ -62,46 +72,39 @@ class Gif {
 		encoder.add(output, frame);
 	}
 	
-	public function save(name:String) {
+	public function save(name:String):Void {
+		#if flash return; #end
 		encoder.commit(output);
 		var bytes = output.getBytes();
 		
-		#if sys
-		//sys.io.File.saveBytes(name, bytes);
-		var fr = new FileReference();
-		fr.save(bytes, name);
-		
-		#elseif js
-		//var imageElement:js.html.ImageElement = cast js.Browser.document.createElement("img");
-		//js.Browser.document.body.appendChild(imageElement);
-		//imageElement.src = "data:image/gif;base64," + haxe.crypto.Base64.encode(bytes);
-		
+		#if js
 		var data = toArrayBuffer(bytes);
-		var blob = new js.html.Blob([data], {
+		var blob = new Blob([data], {
 			type: "image/gif"
 		});
-		var url = js.html.URL.createObjectURL(blob);
-		var a = js.Browser.document.createElement("a");
+		var url = URL.createObjectURL(blob);
+		var a = Browser.document.createElement("a");
 		untyped a.download = name;
 		untyped a.href = url;
 		a.onclick = function(e) {
 			e.cancelBubble = true;
 			e.stopPropagation();
 		}
-		js.Browser.document.body.appendChild(a);
+		Browser.document.body.appendChild(a);
 		a.click();
-		js.Browser.document.body.removeChild(a);
-		js.html.URL.revokeObjectURL(url);
-		
+		Browser.document.body.removeChild(a);
+		URL.revokeObjectURL(url);
 		#else
-		throw "Unsupported platform!";
+		
+		var fr = new FileReference();
+		fr.save(bytes, name);
 		#end
 	}
 	
 	#if js
-	public function toArrayBuffer(bytes):js.html.ArrayBuffer {
-		var buffer = new js.html.ArrayBuffer(bytes.length);
-		var view = new js.html.DataView(buffer, 0, buffer.byteLength);
+	public function toArrayBuffer(bytes):ArrayBuffer {
+		var buffer = new ArrayBuffer(bytes.length);
+		var view = new DataView(buffer, 0, buffer.byteLength);
 		for (i in 0...bytes.length) {
 			view.setUint8(i, bytes.get(i));
 		}
